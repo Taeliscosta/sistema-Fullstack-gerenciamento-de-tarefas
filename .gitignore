@@ -1,5 +1,6 @@
 # Dependências Node.js
 node_modules/
+backend/node_modules/
 
 #Sql
 src/database/database.sqlite
