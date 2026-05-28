@@ -1,18 +1,64 @@
+const db = require('../database/database')
+
 class TaskRepository {
-  constructor() {
-    this.tasks = []
-  }
 
   findAll() {
-    return this.tasks
+    return new Promise((resolve, reject) => {
+      db.all(
+        'SELECT * FROM tasks',
+        [],
+        (error, rows) => {
+
+          if (error) {
+            reject(error)
+          }
+
+          resolve(rows)
+        }
+      )
+
+    })
   }
 
   save(task) {
-    this.tasks.push(task)
+
+    return new Promise((resolve, reject) => {
+      db.run(
+        'INSERT INTO tasks (title, completed) VALUES (?, ?)',
+        [task.title, task.completed],
+        function(error) {
+
+          if (error) {
+            reject(error)
+          }
+
+          resolve({
+            id: this.lastID,
+            ...task
+          })
+        }
+      )
+
+    })
   }
 
   delete(id) {
-    this.tasks = this.tasks.filter(task => task.id !== id)
+
+    return new Promise((resolve, reject) => {
+      db.run(
+        'DELETE FROM tasks WHERE id = ?',
+        [id],
+        function(error) {
+
+          if (error) {
+            reject(error)
+          }
+
+          resolve()
+        }
+      )
+
+    })
   }
 }
 

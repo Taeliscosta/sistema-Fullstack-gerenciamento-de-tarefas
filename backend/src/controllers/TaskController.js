@@ -4,24 +4,27 @@ const service = new TaskService()
 
 class TaskController {
 
-  getTasks(req, res) {
-    const tasks = service.getTasks()
+  async getTasks(req, res) {
+
+    const tasks = await service.getTasks()
 
     res.json(tasks)
   }
 
-  createTask(req, res) {
+  async createTask(req, res) {
+
     const { title } = req.body
 
-    const task = service.createTask(title)
+    const task = await service.createTask(title)
 
     res.status(201).json(task)
   }
 
-  deleteTask(req, res) {
+  async deleteTask(req, res) {
+
     const { id } = req.params
 
-    service.deleteTask(id)
+    await service.deleteTask(id)
 
     res.status(204).send()
   }

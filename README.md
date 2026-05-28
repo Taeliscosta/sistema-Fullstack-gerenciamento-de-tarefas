@@ -1,6 +1,6 @@
 # Todo Fullstack
 
-Projeto Fullstack básico desenvolvido para estudo de:
+Projeto Fullstack básico desenvolvido para a disciplina :
 
 - Programação Orientada a Objetos (POO)
 - SOLID
@@ -15,7 +15,7 @@ Projeto Fullstack básico desenvolvido para estudo de:
 Criar um sistema de gerenciamento de tarefas onde o usuário pode:
 
 - criar tarefas
-- listar tarefas
+- listar tarefas 
 - remover tarefas
 
 ---

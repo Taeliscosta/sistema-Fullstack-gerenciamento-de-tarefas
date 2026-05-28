@@ -2,26 +2,24 @@ const Task = require('../models/Task')
 const TaskRepository = require('../repositories/TaskRepository')
 
 class TaskService {
+
   constructor() {
     this.repository = new TaskRepository()
   }
 
-  getTasks() {
-    return this.repository.findAll()
+  async getTasks() {
+    return await this.repository.findAll()
   }
 
-  createTask(title) {
-    const id = Date.now()
+  async createTask(title) {
 
-    const task = new Task(id, title)
+    const task = new Task(null, title)
 
-    this.repository.save(task)
-
-    return task
+    return await this.repository.save(task)
   }
 
-  deleteTask(id) {
-    this.repository.delete(Number(id))
+  async deleteTask(id) {
+    await this.repository.delete(id)
   }
 }
 
