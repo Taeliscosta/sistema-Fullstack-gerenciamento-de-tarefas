@@ -28,6 +28,18 @@ class TaskController {
 
     res.status(204).send()
   }
+
+  async toggleTask(req, res) {
+    const { id } = req.params
+
+    const { completed } = req.body
+
+    await service.toggleTask(id, completed)
+
+    res.status(200).json({
+      message: 'Tarefa atualizada'
+    })
+  }
 }
 
 module.exports = new TaskController()

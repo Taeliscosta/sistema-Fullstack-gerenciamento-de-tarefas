@@ -20,14 +20,30 @@ async function loadTasks() {
       'list-group-item d-flex justify-content-between align-items-center'
 
     li.innerHTML = `
-      ${task.title}
+        <span
+            style="
+                text-decoration:
+                ${task.completed ? 'line-through' : 'none'}
+            "
+        >
+            ${task.title}
+        </span>
 
-      <button
-        class="btn btn-danger btn-sm"
-        onclick="deleteTask(${task.id})"
-      >
-        Excluir
-      </button>
+        <div>
+            <button
+                class="btn btn-success btn-sm"
+                onclick="toggleTask(${task.id}, ${task.completed})"
+            >
+                ${task.completed ? 'Desfazer' : 'Concluir'}
+            </button>
+
+            <button
+                class="btn btn-danger btn-sm"
+                onclick="deleteTask(${task.id})"
+            >
+                Excluir
+            </button>
+        </div>
     `
 
     taskList.appendChild(li)
@@ -63,6 +79,24 @@ async function deleteTask(id) {
 
   await fetch(`${API_URL}/${id}`, {
     method: 'DELETE'
+  })
+
+  loadTasks()
+}
+
+async function toggleTask(id, completed) {
+
+  await fetch(`${API_URL}/${id}`, {
+
+    method: 'PUT',
+
+    headers: {
+      'Content-Type': 'application/json'
+    },
+
+    body: JSON.stringify({
+      completed: !completed
+    })
   })
 
   loadTasks()

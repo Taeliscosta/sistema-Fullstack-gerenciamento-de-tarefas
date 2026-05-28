@@ -12,7 +12,6 @@ class TaskService {
   }
 
   async createTask(title) {
-
     const task = new Task(null, title)
 
     return await this.repository.save(task)
@@ -20,6 +19,10 @@ class TaskService {
 
   async deleteTask(id) {
     await this.repository.delete(id)
+  }
+
+  async toggleTask(id, completed) {
+    await this.repository.updateStatus(id, completed)
   }
 }
 

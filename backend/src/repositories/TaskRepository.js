@@ -60,6 +60,25 @@ class TaskRepository {
 
     })
   }
+
+  updateStatus(id, completed) {
+
+    return new Promise((resolve, reject) => {
+      db.run(
+        'UPDATE tasks SET completed = ? WHERE id = ?',
+        [completed, id],
+        function(error) {
+          
+          if (error) {
+          reject(error)
+          }
+
+          resolve()
+        }
+      )
+    })
+  }
+  
 }
 
 module.exports = TaskRepository
